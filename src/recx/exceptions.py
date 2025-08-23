@@ -1,0 +1,2 @@
+class RecFailedException(Exception):
+    pass

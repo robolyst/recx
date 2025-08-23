@@ -1,0 +1,22 @@
+{
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "remoteEnv": {
+    "PYTHONPATH": "${containerEnv:PYTHONPATH}:/workspaces/recx/src"
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "charliermarsh.ruff",
+        "donjayamanne.githistory",
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "tamasfe.even-better-toml"
+      ]
+    }
+  }
+}
+
