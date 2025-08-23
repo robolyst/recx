@@ -1,12 +1,27 @@
+# =============================================================================
+# Project Configuration
+# =============================================================================
+
 [project]
 name = "recx"
-version = "0.1.0"
-description = "Add your description here"
+version = "0.0.0"
+description = "Lightweight reconciliation tests for dataframes"
 readme = "README.md"
-requires-python = ">=3.12.4"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+    { name = "Adrian Letchford", email = "me@dradrian.com" }
+]
+
 dependencies = [
     "pandas>=2.3.2",
 ]
+
+[project.urls]
+Homepage = "https://github.com/robolyst/recx"
+# Documentation = "https://yourproject.example.com/docs"  # No docs yet
+Source = "https://github.com/robolyst/recx"
+Issues = "https://github.com/robolyst/recx/issues"
 
 [dependency-groups]
 dev = [
