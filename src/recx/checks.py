@@ -110,15 +110,23 @@ class ColumnCheck(ABC):
         if self.regex:
             baseline_cols = baseline.filter(regex=column).columns
             candidate_cols = candidate.filter(regex=column).columns
-            columns = baseline_cols.intersection(candidate_cols)
-
+            columns = list(baseline_cols.intersection(candidate_cols))
         else:
             columns = [column]
 
-        results = []
+        results: list[CheckResult] = []
 
         for col in columns:
-            failed_rows = self.check(baseline[col], candidate[col])
+            bcol = baseline[col]
+            ccol = candidate[col]
+
+            # Defensive: if a DataFrame slipped through, raise (mis-specified column)
+            if not isinstance(bcol, pd.Series) or not isinstance(ccol, pd.Series):
+                raise TypeError(
+                    "Column selection did not return a Series; check column spec."
+                )
+
+            failed_rows = self.check(bcol, ccol)
 
             result = CheckResult(
                 failed_rows=failed_rows,
@@ -140,16 +148,15 @@ class EqualCheck(ColumnCheck):
     NaNs (nulls) in the same position are treated as equal.
     """
 
-    def check(self, baseline: pd.Series, candidate: pd.Series):
-        good_idx = baseline == candidate
+    def check(self, baseline: pd.Series, candidate: pd.Series) -> pd.DataFrame:
+        good_idx: pd.Series = baseline == candidate
         good_idx = good_idx | (baseline.isnull() & candidate.isnull())
-        bad = pd.concat(
-            objs=[
-                baseline[~good_idx],
-                candidate[~good_idx],
-            ],
-            axis=1,
-            keys=["baseline", "candidate"],
+        # Explicit frame build (avoid concat type ambiguity)
+        bad = pd.DataFrame(
+            {
+                "baseline": baseline[~good_idx],
+                "candidate": candidate[~good_idx],
+            }
         )
         return bad
 
@@ -183,8 +190,8 @@ class AbsTolCheck(ColumnCheck):
         self.tol = tol
         self.sort = sort
 
-    def check(self, baseline: pd.Series, candidate: pd.Series):
-        error = (baseline - candidate).abs()
+    def check(self, baseline: pd.Series, candidate: pd.Series) -> pd.DataFrame:
+        error: pd.Series = (baseline - candidate).abs()
 
         good_idx = (
             # Within tolerance
@@ -193,14 +200,12 @@ class AbsTolCheck(ColumnCheck):
             | (baseline.isnull() & candidate.isnull())
         )
 
-        bad = pd.concat(
-            objs=[
-                baseline[~good_idx],
-                candidate[~good_idx],
-                error[~good_idx],
-            ],
-            axis=1,
-            keys=["baseline", "candidate", "abs_error"],
+        bad = pd.DataFrame(
+            {
+                "baseline": baseline[~good_idx],
+                "candidate": candidate[~good_idx],
+                "abs_error": error[~good_idx],
+            }
         )
 
         if self.sort is not None:
@@ -243,9 +248,9 @@ class RelTolCheck(ColumnCheck):
         self.tol = tol
         self.sort = sort
 
-    def check(self, baseline: pd.Series, candidate: pd.Series):
-        error = (baseline - candidate).abs()
-        error = error / candidate.abs().replace(0, 1e-10)  # Avoid division by zero
+    def check(self, baseline: pd.Series, candidate: pd.Series) -> pd.DataFrame:
+        error: pd.Series = (baseline - candidate).abs()
+        error = error / candidate.abs().replace(0, 1e-10)
 
         good_idx = (
             # Within tolerance
@@ -254,14 +259,12 @@ class RelTolCheck(ColumnCheck):
             | (baseline.isnull() & candidate.isnull())
         )
 
-        bad = pd.concat(
-            objs=[
-                baseline[~good_idx],
-                candidate[~good_idx],
-                error[~good_idx],
-            ],
-            axis=1,
-            keys=["baseline", "candidate", "rel_error"],
+        bad = pd.DataFrame(
+            {
+                "baseline": baseline[~good_idx],
+                "candidate": candidate[~good_idx],
+                "rel_error": error[~good_idx],
+            }
         )
 
         if self.sort is not None:

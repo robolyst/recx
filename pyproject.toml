@@ -158,7 +158,7 @@ pytest ./tests
 test.help = "Run the test suite with coverage"
 
 # Code Quality
-check.shell = "ruff check"
+check.shell = "ruff check && pyright"
 check.help = "Run linting checks"
 
 fix.shell = "ruff check --fix && ruff format"

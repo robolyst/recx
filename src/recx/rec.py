@@ -8,10 +8,22 @@ from recx.results import CheckResult, RecResult
 logger = logging.getLogger(__name__)
 
 
-def get_col(df: pd.DataFrame, col: str) -> pd.Index | pd.Series:
+def get_col(df: pd.DataFrame, col: str) -> pd.Series:
+    """
+    Return an index level (as Index) or a column (as Series).
+    """
     if col in df.index.names:
-        return df.index.get_level_values(col)
-    return df[col]
+        return df.index.get_level_values(col).to_series()
+
+    series_or_df = df[col]
+
+    # would occur with duplicate column labels
+    if isinstance(series_or_df, pd.DataFrame):
+        raise TypeError(
+            "Expected a single column Series, got a DataFrame (duplicate labels?)."
+        )
+
+    return series_or_df
 
 
 def clip_to_last_common_date(
@@ -48,8 +60,8 @@ def clip_to_last_common_date(
 
     latest_date = min(a_dates.max(), b_dates.max())
 
-    clip_a = a[a_dates <= latest_date]
-    clip_b = b[b_dates <= latest_date]
+    clip_a = a.loc[a_dates <= latest_date]
+    clip_b = b.loc[b_dates <= latest_date]
 
     return clip_a, clip_b
 
