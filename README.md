@@ -1,6 +1,10 @@
 <br>
 
-<div align="center"><a href="https://www.union.ai/pandera"><img src="docs/logo.svg" width="400"></a></div>
+<div align="center">
+    <a href="https://github.com/robolyst/recx">
+        <img src="https://github.com/robolyst/recx/raw/main/docs/logo.svg" width="400">
+     </a>
+</div>
 
 <br>
 
