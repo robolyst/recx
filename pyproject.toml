@@ -19,7 +19,7 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/robolyst/recx"
-# Documentation = "https://yourproject.example.com/docs"  # No docs yet
+Documentation = "https://recx.readthedocs.io"
 Source = "https://github.com/robolyst/recx"
 Issues = "https://github.com/robolyst/recx/issues"
 
