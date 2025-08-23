@@ -1,0 +1,36 @@
+name: Build and publish to PyPI
+
+on:
+  release:
+    types: [published]
+
+
+jobs:
+  build-n-publish:
+    name: Build and publish to PyPI
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Set up Python
+        run: uv python install 3.13
+
+      - name: Set package version
+        run: |
+          VERSION=$(git describe --tags)
+          uvx --from=toml-cli toml set --toml-path=pyproject.toml project.version $VERSION
+          echo Set package version $VERSION
+
+      - name: Build
+        run: uv build
+
+      - name: Publish
+        run: uv publish -t ${{ secrets.PYPI_API_TOKEN }}
