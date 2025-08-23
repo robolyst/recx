@@ -32,6 +32,7 @@ plugins:
       default_handler: python
       handlers:
         python:
+          paths: [src]  # search packages in the src folder
           options:
             show_source: false
             docstring_style: numpy
