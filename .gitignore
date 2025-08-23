@@ -12,3 +12,5 @@ wheels/
 .pytest_cache
 .ruff_cache
 .coverage
+site
+.DS_Store
