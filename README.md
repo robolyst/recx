@@ -1,6 +1,9 @@
-# recx
+<br>
+<div align="center"><a href="https://www.union.ai/pandera"><img src="docs/logo.svg" width="400"></a></div>
 
-DataFrame reconciliation utilities for Python / pandas.
+<h1 align="center">
+  Lightweight reconciliation tests for DataFrames
+</h1>
 
 `recx` helps you compare a *candidate* `pandas.DataFrame` against a *baseline* using
 declarative, column-level checks (exact equality, absolute tolerance, relative
