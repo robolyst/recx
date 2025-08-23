@@ -5,12 +5,16 @@ build:
   tools:
     python: "3.12"
 
-python:
-  install:
-    - method: pip
-      path: .
-      extra_requirements:
-        - docs
+  jobs:
+    pre_install:
+      - pip install mkdocs-material
+
+# python:
+#   install:
+#     - method: pip
+#       path: .
+#       extra_requirements:
+#         - docs
 
 mkdocs:
   configuration: mkdocs.yml
