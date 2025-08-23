@@ -14,7 +14,7 @@ authors = [
 ]
 
 dependencies = [
-    "pandas>=2.3.2",
+    "pandas>=2.2.0",
 ]
 
 [project.urls]

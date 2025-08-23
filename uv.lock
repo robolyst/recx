@@ -1223,7 +1223,7 @@ docs = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "pandas", specifier = ">=2.3.2" }]
+requires-dist = [{ name = "pandas", specifier = ">=2.2.0" }]
 
 [package.metadata.requires-dev]
 dev = [
