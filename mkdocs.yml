@@ -1,0 +1,74 @@
+site_name: recx
+site_description: Lightweight reconciliation tests for pandas DataFrames
+site_url: https://recx.readthedocs.io/
+repo_url: https://github.com/robolyst/recx
+repo_name: robolyst/recx
+
+theme:
+  name: material
+  logo: assets/logo.svg
+  favicon: assets/logo.svg
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - content.code.copy
+    - content.action.edit
+    - toc.follow
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Usage: usage.md
+  - API Reference: api.md
+  - Changelog: changelog.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            show_source: false
+            docstring_style: google
+            merge_init_into_class: true
+            members_order: source
+            filters:
+              - '!__class__'
+  - tags
+
+watch:
+  - src/recx
+
+markdown_extensions:
+  - admonition
+  - def_list
+  - footnotes
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/robolyst/recx
+
+extra_css: []
+extra_javascript: []
+
+edit_uri: edit/main/docs/
