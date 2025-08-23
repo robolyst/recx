@@ -17,12 +17,16 @@
 [![PyPI license](https://img.shields.io/pypi/l/recx.svg?style=for-the-badge)](https://pypi.python.org/pypi/)
 [![Project Status: Concept – Minimal or no implementation has been done yet, or the repository is only intended to be a limited example, demo, or proof-of-concept.](https://img.shields.io/badge/repo%20status-Concept-lightgrey?style=for-the-badge)](https://www.repostatus.org/#concept)
 
-`recx` compares a *candidate* `pandas.DataFrame` against a *baseline* using declarative,
-column-level checks (exact equality, absolute tolerance, relative tolerance, or custom
-logic). It produces structured results you can assert on in tests or render as a concise
-textual summary.
+Use Rec to compare two DataFrames (baseline vs candidate) with per-column checks (equality, absolute / relative tolerance, regex-driven selection) and clear summaries of failures.
 
-> Status: Early, experimental. API may change.
+## Features
+
+- Declarative column mapping
+- Built-in checks: equality, absolute tolerance, relative tolerance
+- Index integrity checks (missing / extra index values)
+- Regex column selection (`regex=True` on checks)
+- Compact textual summary
+- Extensible: implement custom checks by subclassing `ColumnCheck`
 
 ## Install
 
@@ -37,15 +41,30 @@ with `uv`:
 uv add recx
 ```
 
-## Features
+## Quick Example
 
-* Index presence checks (missing + extra index values) out of the box
-* Built-in column checks:
-	* `EqualCheck` -- exact equality (treats aligned NaNs as equal)
-	* `AbsTolCheck` -- absolute error within tolerance (optional sort of failures)
-	* `RelTolCheck` -- relative error within tolerance (optional sort of failures)
-* Rich per-check results (`CheckResult`) and aggregate (`RecResult`).
-* Easy to extend: implement a single `check` method on a `ColumnCheck` subclass
+```python
+import pandas as pd
+from recx import Rec, EqualCheck, AbsTolCheck
+
+baseline = pd.DataFrame({
+    "price": [100.00, 200.00, 300.00],
+    "status": ["active", "inactive", "active"]
+})
+
+candidate = pd.DataFrame({
+    "price": [100.00, 200.00, 301.00],
+    "status": ["active", "inactive", "active"]
+})
+
+rec = Rec(columns={
+    "price": AbsTolCheck(tol=0.01),
+    "status": EqualCheck(),
+})
+
+result = rec.run(baseline, candidate)
+result.summary()
+```
 
 ---
 
