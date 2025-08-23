@@ -1,23 +1,18 @@
-<br>
+---
+title: recx
+---
 
-<div align="center">
-    <a href="https://github.com/robolyst/recx">
-        <img src="https://github.com/robolyst/recx/raw/main/docs/assets/logo.svg" width="400">
-     </a>
-</div>
+<img src="assets/logo.svg" width="400">
 
-<br>
 
-<h1 align="center">
-  Lightweight reconciliation tests for DataFrames
-</h1>
+Lightweight reconciliation tests for DataFrames
 
 [![CI Build](https://img.shields.io/github/actions/workflow/status/robolyst/recx/ci.yml?branch=main&label=tests&style=for-the-badge)](https://github.com/robolyst/recx/actions/workflows/ci.yml?query=branch%3Amain)
 [![PyPI version](https://img.shields.io/pypi/v/recx.svg?style=for-the-badge)](https://pypi.org/project/recx/)
 [![PyPI license](https://img.shields.io/pypi/l/recx.svg?style=for-the-badge)](https://pypi.python.org/pypi/)
 [![Project Status: Concept – Minimal or no implementation has been done yet, or the repository is only intended to be a limited example, demo, or proof-of-concept.](https://img.shields.io/badge/repo%20status-Concept-lightgrey?style=for-the-badge)](https://www.repostatus.org/#concept)
 
-Use Rec to compare two DataFrames (baseline vs candidate) with per-column checks (equality, absolute / relative tolerance, regex-driven selection) and clear summaries of failures.
+Use `Rec` to compare two DataFrames (baseline vs candidate) with per-column checks (equality, absolute / relative tolerance, regex-driven selection) and clear summaries of failures.
 
 ## Features
 
@@ -27,19 +22,6 @@ Use Rec to compare two DataFrames (baseline vs candidate) with per-column checks
 - Regex column selection (`regex=True` on checks)
 - Compact textual summary
 - Extensible: implement custom checks by subclassing `ColumnCheck`
-
-## Install
-
-With `pip`:
-
-```bash
-pip install recx
-```
-
-with `uv`:
-```bash
-uv add recx
-```
 
 ## Quick Example
 
@@ -65,6 +47,12 @@ rec = Rec(columns={
 result = rec.run(baseline, candidate)
 result.summary()
 ```
+
+## Next Steps
+
+* Read the [Getting Started](getting-started.md) guide.
+* Browse the [Usage](usage.md) examples.
+* Dive into the [API Reference](api.md).
 
 ---
 

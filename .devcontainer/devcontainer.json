@@ -6,6 +6,7 @@
   "remoteEnv": {
     "PYTHONPATH": "${containerEnv:PYTHONPATH}:/workspaces/recx/src"
   },
+  "appPort": ["8000:8000"],
 
   "customizations": {
     "vscode": {

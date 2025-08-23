@@ -31,6 +31,17 @@ dev = [
     "pytest-coverage>=0.0",
     "ruff>=0.12.10",
     "twine>=6.1.0",
+    "mkdocs>=1.6.0",
+    "mkdocs-material>=9.5.0",
+    "mkdocstrings>=0.25.0",
+    "mkdocstrings-python>=1.10.0",
+]
+
+docs = [
+    "mkdocs>=1.6.0",
+    "mkdocs-material>=9.5.0",
+    "mkdocstrings>=0.25.0",
+    "mkdocstrings-python>=1.10.0",
 ]
 
 [build-system]
@@ -163,3 +174,10 @@ check.help = "Run linting checks"
 
 fix.shell = "ruff check --fix && ruff format"
 fix.help = "Auto fix linting and formatting issues"
+
+# Documentation
+docs-serve.shell = "mkdocs serve -a 0.0.0.0:8000"
+docs-serve.help = "Serve documentation with live reload"
+
+docs-build.shell = "mkdocs build --strict"
+docs-build.help = "Build the documentation site"
