@@ -4,16 +4,16 @@ title: API Reference
 
 # API Reference
 
-::: recx.rec.Rec
+::: recx.Rec
 
-::: recx.checks.ColumnCheck
+::: recx.ColumnCheck
 
-::: recx.checks.EqualCheck
+::: recx.EqualCheck
 
-::: recx.checks.AbsTolCheck
+::: recx.AbsTolCheck
 
-::: recx.checks.RelTolCheck
+::: recx.RelTolCheck
 
-::: recx.results.CheckResult
+::: recx.CheckResult
 
-::: recx.results.RecResult
+::: recx.RecResult

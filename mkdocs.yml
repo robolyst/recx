@@ -34,11 +34,14 @@ plugins:
         python:
           options:
             show_source: false
-            docstring_style: google
+            docstring_style: numpy
             merge_init_into_class: true
             members_order: source
             filters:
               - '!__class__'
+            paths: [src]
+            show_root_heading: true
+            show_object_full_path: false
   - tags
 
 watch:
