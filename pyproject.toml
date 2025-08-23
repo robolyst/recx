@@ -5,7 +5,7 @@
 [project]
 name = "recx"
 version = "0.0.0"
-description = "Lightweight reconciliation tests for dataframes"
+description = "Lightweight reconciliation tests for DataFrames"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
