@@ -2,7 +2,7 @@
 
 <div align="center">
     <a href="https://github.com/robolyst/recx">
-        <img src="https://github.com/robolyst/recx/raw/main/docs/logo.svg" width="400">
+        <img src="https://github.com/robolyst/recx/raw/main/docs/assets/logo.svg" width="400">
      </a>
 </div>
 
