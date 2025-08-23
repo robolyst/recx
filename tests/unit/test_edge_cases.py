@@ -101,7 +101,8 @@ def test_checkresult_failures_str_truncation():
         disp_rows=10,
     )
     txt = cr.failures_str()
-    # We display only the tail; expect last index present and first line is not raw index 0 row
+    # We display only the tail; expect last index present and first line is not raw
+    # index 0 row
     assert "19" in txt
 
 
