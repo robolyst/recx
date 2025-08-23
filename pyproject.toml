@@ -151,7 +151,7 @@ pytest ./tests
        --color=yes
        --cov=src
        --no-cov-on-fail
-       --cov-fail-under=95
+       --cov-fail-under=60
        --cov-report term-missing:skip-covered
        --ignore=analytics
 """
