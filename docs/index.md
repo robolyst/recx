@@ -10,7 +10,7 @@ Lightweight reconciliation tests for DataFrames
 [![CI Build](https://img.shields.io/github/actions/workflow/status/robolyst/recx/ci.yml?branch=main&label=tests&style=for-the-badge)](https://github.com/robolyst/recx/actions/workflows/ci.yml?query=branch%3Amain)
 [![PyPI version](https://img.shields.io/pypi/v/recx.svg?style=for-the-badge)](https://pypi.org/project/recx/)
 [![PyPI license](https://img.shields.io/pypi/l/recx.svg?style=for-the-badge)](https://pypi.python.org/pypi/)
-[![Project Status: Concept – Minimal or no implementation has been done yet, or the repository is only intended to be a limited example, demo, or proof-of-concept.](https://img.shields.io/badge/repo%20status-Concept-lightgrey?style=for-the-badge)](https://www.repostatus.org/#concept)
+[![Project Status: Active](https://img.shields.io/badge/repo%20status-Active-Green?style=for-the-badge)](https://www.repostatus.org/#active)
 
 Use `Rec` to compare two DataFrames (baseline vs candidate) with per-column checks (equality, absolute / relative tolerance, regex-driven selection) and clear summaries of failures.
 
