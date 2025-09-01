@@ -55,8 +55,8 @@ def clip_to_last_common_date(
         ``(a_clipped, b_clipped)`` with only rows whose ``date_col`` value is
         less than or equal to the shared maximum date.
     """
-    a_dates = get_col(a, date_col)
-    b_dates = get_col(b, date_col)
+    a_dates = get_col(a, date_col).to_numpy()
+    b_dates = get_col(b, date_col).to_numpy()
 
     latest_date = min(a_dates.max(), b_dates.max())
 

@@ -63,3 +63,26 @@ def equal_nan_frames():
     baseline = pd.DataFrame({"A": [1.0, None]})
     candidate = pd.DataFrame({"A": [1.0, None]})
     return baseline, candidate
+
+
+@pytest.fixture
+def multi_index_frames():
+    baseline = pd.DataFrame(
+        {
+            "vintage_date": ["2024-01-01", "2024-01-02"],
+            "date": ["2024-01-01", "2024-01-02"],
+            "series_id": [1, 2],
+            "A": [1, 2],
+            "B": [3, 4],
+        }
+    ).set_index(["vintage_date", "date", "series_id"])
+    candidate = pd.DataFrame(
+        {
+            "vintage_date": ["2024-01-01", "2024-01-02", "2024-01-03"],
+            "date": ["2024-01-01", "2024-01-02", "2024-01-03"],
+            "series_id": [1, 2, 3],
+            "A": [1, 2, 3],
+            "B": [3, 4, 6],
+        }
+    ).set_index(["vintage_date", "date", "series_id"])
+    return baseline, candidate

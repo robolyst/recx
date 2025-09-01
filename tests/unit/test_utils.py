@@ -15,3 +15,14 @@ def test_clip_to_last_common_date_index(dated_frames):
     assert a_clip.equals(baseline)
     # Candidate should be clipped to remove trailing 2024-01-03, keeping first two rows
     assert list(b_clip.index) == ["2024-01-01", "2024-01-02"]
+
+
+def test_clip_to_last_common_date_index_on_multi_index(multi_index_frames):
+    b, c = multi_index_frames
+    a_clip, b_clip = clip_to_last_common_date(b, c, "vintage_date")
+    assert a_clip.equals(b)
+
+    assert b_clip.index.get_level_values("vintage_date").tolist() == [
+        "2024-01-01",
+        "2024-01-02",
+    ]
