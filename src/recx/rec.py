@@ -96,11 +96,15 @@ class Rec:
         self,
         columns: dict[str, ColumnCheck | None],
         check_all: bool = True,
+        check_missing_indices: bool = True,
+        check_extra_indices: bool = True,
         align_date_col: str | None = None,
     ):
         self.align_date_col = align_date_col
         self.columns = columns
         self.check_all = check_all
+        self.check_missing_indices = check_missing_indices
+        self.check_extra_indices = check_extra_indices
 
     def run(
         self,
@@ -143,8 +147,11 @@ class Rec:
 
         results: list[CheckResult] = []
 
-        results.append(index_check(_baseline, _candidate, "missing"))
-        results.append(index_check(_baseline, _candidate, "extra"))
+        if self.check_missing_indices:
+            results.append(index_check(_baseline, _candidate, "missing"))
+
+        if self.check_extra_indices:
+            results.append(index_check(_baseline, _candidate, "extra"))
 
         # Make sure the indices match
         index = _baseline.index.intersection(_candidate.index)

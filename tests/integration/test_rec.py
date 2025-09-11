@@ -23,3 +23,59 @@ def test_abs_tol_integration(abs_tol_frames):
     assert not result.passed()
     failure = result.failures()[0]
     assert "abs_error" in failure.failed_rows.columns
+
+
+def test_check_extra_indices(multi_index_frames):
+    b, c = multi_index_frames
+
+    result = Rec(
+        align_date_col=None,
+        columns={},
+        check_missing_indices=True,
+        check_extra_indices=True,
+        check_all=True,
+    ).run(b, c)
+
+    # Should fail because of the extra index in candidate
+    assert not result.passed()
+
+    result = Rec(
+        align_date_col=None,
+        columns={},
+        check_missing_indices=True,
+        check_extra_indices=False,
+        check_all=True,
+    ).run(b, c)
+
+    # Should pass because we are not checking for extra indices
+    assert result.passed()
+
+
+def test_check_missin_indices(multi_index_frames):
+    b, c = multi_index_frames
+
+    # The candidate has extra indicies, so swap them so that the candidate has
+    # missing indices
+    b, c = c, b
+
+    result = Rec(
+        align_date_col=None,
+        columns={},
+        check_missing_indices=True,
+        check_extra_indices=True,
+        check_all=True,
+    ).run(b, c)
+
+    # Should fail because of the missing index in candidate
+    assert not result.passed()
+
+    result = Rec(
+        align_date_col=None,
+        columns={},
+        check_missing_indices=False,
+        check_extra_indices=True,
+        check_all=True,
+    ).run(b, c)
+
+    # Should pass because we are not checking for missing indices
+    assert result.passed()
