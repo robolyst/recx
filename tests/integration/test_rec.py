@@ -79,3 +79,17 @@ def test_check_missin_indices(multi_index_frames):
 
     # Should pass because we are not checking for missing indices
     assert result.passed()
+
+
+def test_summary_runs_without_error(abs_tol_frames_large):
+    b, c = abs_tol_frames_large
+    rec = Rec(
+        columns={
+            "B": AbsTolCheck(tol=0.5, sort="desc"),
+        },
+        align_date_col="date",
+    )
+    result = rec.run(b, c)
+
+    assert not result.passed()
+    result.summary()

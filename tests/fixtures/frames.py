@@ -58,6 +58,26 @@ def abs_tol_frames():
     return baseline, candidate
 
 
+# Larger frames designed for tolerance sorting tests
+@pytest.fixture
+def abs_tol_frames_large():
+    dates = pd.date_range(start="2024-01-01", periods=1000, freq="D")
+    values = list(range(1000))
+    baseline = pd.DataFrame(
+        {
+            "date": dates,
+            "B": values,
+        }
+    ).set_index("date")
+    candidate = pd.DataFrame(
+        {
+            "date": dates,
+            "B": values[::-1],
+        }
+    ).set_index("date")
+    return baseline, candidate
+
+
 @pytest.fixture
 def equal_nan_frames():
     baseline = pd.DataFrame({"A": [1.0, None]})
