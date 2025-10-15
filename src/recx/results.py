@@ -7,6 +7,20 @@ from recx.exceptions import RecFailedException
 logger = logging.getLogger(__name__)
 
 
+def df2str(
+    df: pd.DataFrame,
+    max_rows: int | None = None,
+) -> str:
+    args = []
+    args += ["display.min_rows", max_rows]
+    args += ["display.max_rows", max_rows]
+    args += ["display.max_columns", None]
+    args += ["display.width", 10000]
+
+    with pd.option_context(*args):
+        return df.__str__()
+
+
 class CheckResult:
     """
     Result of an individual column (or index) check.
@@ -42,7 +56,7 @@ class CheckResult:
         column: str | None = None,
         check_args: dict | None = None,
         min_dots: int = 5,
-        disp_rows: int = 10,
+        disp_rows: int = 20,
     ):
         self.failed_rows = failed_rows
         self.column = column
@@ -138,7 +152,7 @@ class CheckResult:
 
     def failures_str(self) -> str:
         # These are the rows we want to display to the user.
-        disp = str(self.failed_rows.tail(self.disp_rows))
+        disp = df2str(self.failed_rows, max_rows=self.disp_rows)
         title = self.mini_signature()
         subtitle = f"Showing up to {self.disp_rows} rows"
 
